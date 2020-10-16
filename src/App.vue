@@ -1,27 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar
-        app
-        color="primary"
-        dark
-    >
+    <v-app-bar app color="#F0131E" dark>
       <div class="d-flex align-center">
         <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-            transition="scale-transition"
-            width="40"
-        />
-
-        <v-img
-            alt="Vuetify Name"
-            class="shrink mt-1 hidden-sm-and-down"
-            contain
-            min-width="100"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-            width="100"
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="./img/marvel_logo.png"
+          transition="scale-transition"
+          width="90"
         />
       </div>
       <div id="nav">
@@ -52,20 +39,20 @@
     </v-app-bar>
 
     <v-main>
-      <Home/>
+      <Home />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Home from './components/Home';
+import Home from "./components/Home";
 
 export default {
-  name: 'App',
-  methods : {
+  name: "App",
+  methods: {
     darkMode() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    }
+    },
   },
   components: {
     Home,
@@ -77,23 +64,16 @@ export default {
 };
 </script>
 
-
-
-
-
-
-
 <style lang="scss">
-
 #nav {
   padding: 30px;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #ffffff;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #ffffff;
     }
   }
 }
