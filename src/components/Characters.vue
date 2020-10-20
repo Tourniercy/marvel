@@ -2,7 +2,7 @@
 
   <v-container>
     <v-col>
-      <v-autocomplete
+      <v-combobox
           v-model="searchValue"
           :items="resultSearch"
           :loading="loading"
@@ -10,7 +10,7 @@
           item-text="name"
           label="Recherche d'un personnage ..."
       >
-      </v-autocomplete>
+      </v-combobox>
 
     </v-col>
     <v-row no-gutters v-if="loading">
@@ -29,9 +29,10 @@
     <v-row v-else-if="count === 0">
       <v-col
           cols="12"
-          sm="4"
       >
-        <p>Test</p>
+        <p class="subtitle-2 text-center">
+          Pas de résultat
+        </p>
       </v-col>
     </v-row>
     <v-row no-gutters v-else>
@@ -55,6 +56,7 @@
 
           <v-card-actions>
             <v-btn
+                @click="$router.push({ name: 'Character' , params: { id: character.id } })"
                 color="orange lighten-2"
                 text
             >
@@ -83,14 +85,13 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'Apidata',
+  name: 'Characters',
   data() {
     return {
       resultSearch : [],
-      offset : 1,
+      offset : 0,
       page: 1,
       total: 0,
-      show: null,
       loading: true,
       characters: [], 
       search : null,
@@ -145,16 +146,15 @@ export default {
     }
   },
   watch: {
-    search(query) {
-      console.log('search');
-      this.page = 0
-      this.offset = 1
-      this.loading = true
-      if (!query) {
-        this.query = null
-      } else {
-        this.query = query
+    search(query, previous) {
+      if (query === previous) {
+        return
       }
+      this.search = query
+      this.page = 0
+      this.offset = 0
+      this.loading = true
+      this.query = query
       this.fetchEntriesDebounced()
 
     },

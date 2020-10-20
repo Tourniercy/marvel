@@ -39,13 +39,13 @@
     </v-app-bar>
 
     <v-main>
-      <Home />
+      <Characters/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Home from "./components/Home";
+import Characters from "./components/Characters";
 
 export default {
   name: "App",
@@ -55,7 +55,7 @@ export default {
     },
   },
   components: {
-    Home,
+    Characters,
   },
 
   data: () => ({
