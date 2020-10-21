@@ -39,13 +39,12 @@
     </v-app-bar>
 
     <v-main>
-      <Characters/>
+      <router-view/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Characters from "./components/Characters";
 
 export default {
   name: "App",
@@ -53,9 +52,6 @@ export default {
     darkMode() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
-  },
-  components: {
-    Characters,
   },
 
   data: () => ({
