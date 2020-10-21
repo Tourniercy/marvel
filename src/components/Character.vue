@@ -136,6 +136,7 @@
 
 <script>
 import axios from 'axios';
+import router from "@/router";
 export default {
   name: 'Character',
   data() {
@@ -190,8 +191,8 @@ export default {
             )
             }
           })
-          .catch(error => {
-            console.log(error)
+          .catch( () => {
+            return router.push('/')
           })
     },
     getComicsFromCharacter: function () {

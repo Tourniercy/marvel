@@ -55,7 +55,9 @@
 
       >
         <span class="text-body-1">Nom : </span><span class="font-weight-black">{{ comic.title }}</span><br><br>
-        <span class="text-body-1">Description : </span><span class="font-weight-black">{{ comic.description ? comic.description : 'Aucune description'}}</span><br>
+        <span class="text-body-1">Description : </span><span class="font-weight-black">{{ comic.description ? comic.description : 'Aucune description'}}</span><br><br>
+        <span class="text-body-1">Date de sortie : </span><span class="font-weight-black">{{ comic.dates[0] ? comic.dates[0].date.split('T')[0]: 'Aucune date retournée'}}</span><br><br>
+        <span class="text-body-1">Prix : </span><span class="font-weight-black">{{ comic.prices[0] ? comic.prices[0].price + '$' : 'Aucune description'}}</span><br><br>
 
       </v-col>
     </v-row>
@@ -136,6 +138,7 @@
 
 <script>
 import axios from 'axios';
+import router from "@/router";
 export default {
   name: 'Comic',
   data() {
@@ -166,6 +169,7 @@ export default {
           .get(request)
           .then(response => {
             if (response.data.data.count) {
+              console.log(response.data.data.results[0].dates)
               this.comic = response.data.data.results[0]
               this.count = response.data.data.count
               request = 'http://gateway.marvel.com/v1/public/comics/'+this.$route.params.id+'/characters?orderBy=name&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
@@ -190,8 +194,8 @@ export default {
                   )
             }
           })
-          .catch(error => {
-            console.log(error)
+          .catch( () => {
+            return router.push('/')
           })
     },
     getCharactersFromComic: function () {
