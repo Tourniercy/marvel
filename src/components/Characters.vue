@@ -111,9 +111,9 @@ export default {
     getCharacters: function() {
       let request = '';
       if (this.query) {
-        request = 'http://gateway.marvel.com/v1/public/characters?nameStartsWith='+encodeURIComponent(this.query)+'&orderBy=name&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+        request = 'http://gateway.marvel.com/v1/public/characters?nameStartsWith='+encodeURIComponent(this.query)+'&orderBy=name&offset='+this.offset+'&apikey='+process.env.VUE_APP_API_KEY+''
       } else {
-        request = 'http://gateway.marvel.com/v1/public/characters?orderBy=name&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+        request = 'http://gateway.marvel.com/v1/public/characters?orderBy=name&offset='+this.offset+'&apikey='+process.env.VUE_APP_API_KEY+''
       }
       axios
           .get(request)
@@ -159,6 +159,7 @@ export default {
     },
   },
   mounted() {
+    console.log(process.env)
     this.getCharacters()
   }
 }

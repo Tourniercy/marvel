@@ -162,14 +162,14 @@ export default {
     },
     getCharacter: function() {
       let request = '';
-        request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'?ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+        request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'?apikey='+process.env.VUE_APP_API_KEY+''
       axios
           .get(request)
           .then(response => {
             if (response.data.data.count) {
               this.character = response.data.data.results[0]
               this.count = response.data.data.count
-              request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'/comics?orderBy=title&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+              request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'/comics?orderBy=title&apikey='+process.env.VUE_APP_API_KEY+''
               axios
                   .get(request)
                   .then(response => {
@@ -197,7 +197,7 @@ export default {
     },
     getComicsFromCharacter: function () {
               let request = '';
-              request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'/comics?orderBy=title&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+              request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'/comics?orderBy=title&offset='+this.offset+'&apikey='+process.env.VUE_APP_API_KEY+''
               axios
                   .get(request)
                   .then(response => {
