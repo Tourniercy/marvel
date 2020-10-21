@@ -7,8 +7,8 @@
           :items="resultSearch"
           :loading="loading"
           :search-input.sync="search"
-          item-text="name"
-          label="Recherche d'un personnage ..."
+          item-text="title"
+          label="Recherche d'un comics ..."
       >
       </v-combobox>
 
@@ -37,7 +37,7 @@
     </v-row>
     <v-row no-gutters v-else>
       <v-col
-          v-for="character in characters" :key="character.id"
+          v-for="comic in comics" :key="comic.id"
           cols="12"
           sm="4"
       >
@@ -46,17 +46,17 @@
             max-width="344"
         >
           <v-img
-              v-bind:src="character.thumbnail.path+'.jpg'"
+              v-bind:src="comic.thumbnail.path+'.jpg'"
               height="200px"
           ></v-img>
 
           <v-card-title>
-            {{ character.name }}
+            {{ comic.title }}
           </v-card-title>
 
           <v-card-actions>
             <v-btn
-                @click="$router.push({ name: 'Character' , params: { id: character.id } })"
+                @click="$router.push({ name: 'Comic' , params: { id: comic.id } })"
                 color="orange lighten-2"
                 text
             >
@@ -85,7 +85,7 @@
 <script>
 import axios from 'axios';
 export default {
-  name: 'Characters',
+  name: 'Comics',
   data() {
     return {
       resultSearch : [],
@@ -93,7 +93,7 @@ export default {
       page: 1,
       total: 0,
       loading: true,
-      characters: [], 
+      comics: [],
       search : null,
       query : null,
       count : 0,
@@ -106,14 +106,14 @@ export default {
       this.loading = true;
       this.offset = pagination*20-20
       this.page = pagination
-      this.getCharacters()
+      this.getComics()
     },
-    getCharacters: function() {
+    getComics: function() {
       let request = '';
       if (this.query) {
-        request = 'http://gateway.marvel.com/v1/public/characters?nameStartsWith='+this.query+'&orderBy=name&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+        request = 'http://gateway.marvel.com/v1/public/comics?titleStartsWith='+this.query+'&orderBy=title&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
       } else {
-        request = 'http://gateway.marvel.com/v1/public/characters?orderBy=name&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
+        request = 'http://gateway.marvel.com/v1/public/comics?orderBy=title&offset='+this.offset+'&ts=1&apikey=5f30a789bead9d41e5a18b34f8c68733&hash=e1598d387c7946ba66079f451ae93788'
       }
       axios
           .get(request)
@@ -122,7 +122,7 @@ export default {
               this.resultSearch = response.data.data.results
             }
             if (response.data.data.count) {
-              this.characters = response.data.data.results
+              this.comics = response.data.data.results
               this.total = Math.ceil(response.data.data.total/20)
             }
             this.count = response.data.data.count;
@@ -139,7 +139,7 @@ export default {
       clearTimeout(this._timerId)
       // delay new call 500ms
       this._timerId = setTimeout(() => {
-        this.getCharacters()
+        this.getComics()
       }, 500)
 
     }
@@ -159,7 +159,7 @@ export default {
     },
   },
   mounted() {
-    this.getCharacters()
+    this.getComics()
   }
 }
 </script>

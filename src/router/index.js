@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Characters from "@/components/Characters";
 import Character from "@/components/Character";
+import Comics from "@/components/Comics";
+import Comic from "@/components/Comic";
 
 Vue.use(VueRouter);
 
@@ -19,7 +21,12 @@ const routes = [
   {
     path: "/comics",
     name: "Comics",
-    component: Characters,
+    component: Comics,
+  },
+  {
+    path: "/comic/:id",
+    name: "Comic",
+    component: Comic,
   },
 ];
 
