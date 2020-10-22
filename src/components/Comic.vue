@@ -101,6 +101,7 @@
               <v-card-title>
                 {{ character.name }}
               </v-card-title>
+              <v-divider></v-divider>
 
               <v-card-actions>
                 <v-btn

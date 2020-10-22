@@ -53,7 +53,7 @@
           <v-card-title>
             {{ character.name }}
           </v-card-title>
-
+          <v-divider></v-divider>
           <v-card-actions>
             <v-btn
                 @click="$router.push({ name: 'Character' , params: { id: character.id } })"
