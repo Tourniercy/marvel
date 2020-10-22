@@ -1,64 +1,59 @@
 <template>
 
   <v-container>
-
-    <v-row v-if="count === 0">
-      <v-col
-          cols="12"
-      >
-        <p class="subtitle-2 text-center">
-          Pas de résultat
-        </p>
-      </v-col>
-    </v-row>
-    <v-row no-gutters v-else align="center"
-           justify="center">
-      <v-col
-          cols="12"
-          sm="4"
-      >
-        <v-skeleton-loader v-if="loading"
-            class="mx-auto"
-            type="image"
-            width="344"
-            height="344"
+    <v-card
+        elevation="2"
+    >
+      <v-row no-gutters  align="center"
+             justify="center">
+        <v-col
+            cols="12"
+            sm="4"
         >
-        </v-skeleton-loader>
-        <v-img
+          <v-skeleton-loader v-if="loading"
+                             class="mx-auto"
+                             type="image"
+                             width="344"
+                             height="344"
+          >
+          </v-skeleton-loader>
+          <v-img
+              v-else
+              class="mx-auto"
+              v-bind:src="character.thumbnail.path+'.jpg'"
+              max-width="344"
+          ></v-img>
+
+        </v-col>
+        <v-col
+            cols="12"
+            sm="8"
+            v-if="loading">
+          <v-skeleton-loader
+              class="mx-auto"
+              type="text"
+          >
+          </v-skeleton-loader>
+          <v-skeleton-loader
+              class="mx-auto"
+              type="text"
+          >
+          </v-skeleton-loader>
+        </v-col>
+
+        <v-col
             v-else
-            class="mx-auto"
-            v-bind:src="character.thumbnail.path+'.jpg'"
-            max-width="344"
-        ></v-img>
+            cols="12"
+            sm="8"
 
-      </v-col>
-      <v-col
-          cols="12"
-          sm="8"
-          v-if="loading">
-        <v-skeleton-loader
-            class="mx-auto"
-            type="text"
         >
-        </v-skeleton-loader>
-        <v-skeleton-loader
-            class="mx-auto"
-            type="text"
-        >
-        </v-skeleton-loader>
-      </v-col>
+          <span class="text-body-1">Nom : </span><span class="font-weight-black">{{ character.name }}</span><br><br>
+          <span class="text-body-1">Description : </span><span class="font-weight-black">{{ character.description.length > 1  ? character.description : 'Aucune description'}}</span><br>
 
-      <v-col
-          v-else
-          cols="12"
-          sm="8"
+        </v-col>
+      </v-row>
 
-      >
-        <span class="text-body-1">Nom : </span><span class="font-weight-black">{{ character.name }}</span><br><br>
-        <span class="text-body-1">Description : </span><span class="font-weight-black">{{ character.description.length > 1 ? character.description : 'Aucune description'}}</span><br>
-
-      </v-col>
-    </v-row>
+    </v-card>
     <v-row>
       <v-col
           cols="12"
@@ -143,7 +138,6 @@ export default {
     return {
       loading: true,
       character: null,
-      count : 0,
       comics : [],
       loadingComics : true,
       offsetComics : 0,
@@ -168,7 +162,6 @@ export default {
           .then(response => {
             if (response.data.data.count) {
               this.character = response.data.data.results[0]
-              this.count = response.data.data.count
               request = 'http://gateway.marvel.com/v1/public/characters/'+this.$route.params.id+'/comics?orderBy=title&apikey='+process.env.VUE_APP_API_KEY+''
               axios
                   .get(request)
