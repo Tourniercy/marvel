@@ -84,6 +84,7 @@
 
 <script>
 import axios from 'axios';
+import router from "@/router";
 export default {
   name: 'Characters',
   data() {
@@ -93,7 +94,7 @@ export default {
       page: 1,
       total: 0,
       loading: true,
-      characters: [], 
+      characters: [],
       search : null,
       query : null,
       count : 0,
@@ -129,15 +130,13 @@ export default {
             this.loading = false
 
           })
-          .catch(error => {
-            console.log(error)
+          .catch(() => {
+            return router.push({ path: `/Error/` })
           })
           .finally(() => this.loading = false)
     },
     fetchEntriesDebounced() {
-      // cancel pending call
       clearTimeout(this._timerId)
-      // delay new call 500ms
       this._timerId = setTimeout(() => {
         this.getCharacters()
       }, 500)
@@ -155,7 +154,6 @@ export default {
       this.loading = true
       this.query = query
       this.fetchEntriesDebounced()
-
     },
   },
   mounted() {

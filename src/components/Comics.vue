@@ -84,6 +84,7 @@
 
 <script>
 import axios from 'axios';
+import router from "@/router";
 export default {
   name: 'Comics',
   data() {
@@ -129,8 +130,8 @@ export default {
             this.loading = false
 
           })
-          .catch(error => {
-            console.log(error)
+          .catch(() => {
+            return router.push({ path: `/Error/` })
           })
           .finally(() => this.loading = false)
     },

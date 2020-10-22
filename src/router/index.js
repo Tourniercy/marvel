@@ -4,14 +4,20 @@ import Characters from "@/components/Characters";
 import Character from "@/components/Character";
 import Comics from "@/components/Comics";
 import Comic from "@/components/Comic";
+import Error from "@/components/Error";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "*",
+    path: "/",
     name: "Home",
     component: Characters,
+  },
+  {
+    path: "*",
+    name: "Error",
+    component: Error,
   },
   {
     path: "/character/:id",

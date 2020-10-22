@@ -55,7 +55,7 @@
 
       >
         <span class="text-body-1">Nom : </span><span class="font-weight-black">{{ character.name }}</span><br><br>
-        <span class="text-body-1">Description : </span><span class="font-weight-black">{{ character.description ? character.description : 'Aucune description'}}</span><br>
+        <span class="text-body-1">Description : </span><span class="font-weight-black">{{ character.description.length > 1 ? character.description : 'Aucune description'}}</span><br>
 
       </v-col>
     </v-row>
@@ -181,8 +181,8 @@ export default {
                     this.loadingComics = false
                     this.loading = false
                   })
-                  .catch(error => {
-                    console.log(error)
+                  .catch(() => {
+                    return router.push({ path: `/Error/` })
                   })
                   .finally(() => {
                     this.loading = false
@@ -191,8 +191,8 @@ export default {
             )
             }
           })
-          .catch( () => {
-            return router.push('/')
+          .catch(() => {
+            return router.push({ path: `/Error/` })
           })
     },
     getComicsFromCharacter: function () {

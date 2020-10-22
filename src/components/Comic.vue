@@ -169,7 +169,6 @@ export default {
           .get(request)
           .then(response => {
             if (response.data.data.count) {
-              console.log(response.data.data.results[0].dates)
               this.comic = response.data.data.results[0]
               this.count = response.data.data.count
               request = 'http://gateway.marvel.com/v1/public/comics/'+this.$route.params.id+'/characters?orderBy=name&apikey='+process.env.VUE_APP_API_KEY+''
@@ -184,8 +183,8 @@ export default {
                     this.loadingCharacters = false
                     this.loading = false
                   })
-                  .catch(error => {
-                    console.log(error)
+                  .catch(() => {
+                    return router.push({ path: `/Error/` })
                   })
                   .finally(() => {
                         this.loading = false
@@ -195,7 +194,7 @@ export default {
             }
           })
           .catch( () => {
-            return router.push('/')
+            return router.push({ path: `/Error/` })
           })
     },
     getCharactersFromComic: function () {
@@ -209,8 +208,8 @@ export default {
             }
             this.loadingCharacters = false
           })
-          .catch(error => {
-            console.log(error)
+          .catch(() => {
+            return router.push({ path: `/Error/` })
           })
           .finally(() =>this.loadingCharacters = false)
     }
